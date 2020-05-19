@@ -1,32 +1,80 @@
-import React, { useState } from "react";
-import { Nav, Navbar, NavItem } from "react-bootstrap"
-import {NavDropdown,FormControl,Button,Form} from "react-bootstrap";
+import React, { Component } from "react";
+import { API_BASE_URL,ACCESS_TOKEN} from '../constants';
+import { Form, Input, Button,notification } from 'antd';
+import { login } from '../util/APIUtils';
+
 import './Login.css';
 
-import Routes from "../Routes";
 
-function Login() {
+class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {email: '', password: ''};
+    }
 
-    return (
-        <div className="center_block">
-            <div className="center_top"></div>
-            <div className="center_border">
+    handleChange = (event) => {
+        this.setState({[event.target.name] : event.target.value});
+    };
 
+    loginLogic = () => {
+        const loginRequest = {email: this.state.email, password: this.state.password};
+            login(loginRequest)
+            .then(res => {
+                if (res.accessToken !== null) {
+                    localStorage.setItem(ACCESS_TOKEN,res.accessToken);
+                }
+            })
+            .catch(error => {
+                if (error.status === 401) {
+                    notification.error({
+                        message: 'Error',
+                        description: 'Your Username or Password is incorrect. Please try again!'
+                    });
+                } else {
+                    notification.error({
+                        message: 'Error',
+                        description: error.message || 'Sorry! Something went wrong. Please try again!'
+                    });
+                }
+            })
+    };
 
-                <div className="form_block">
-                    <form action="login" method="post">
-                        <input type="text" name="username" placeholder="${mail}"/>
+    afterLogin(){
 
-                            <input type="password" name="password" placeholder="${pass}"/>
+    }
 
-                                <button type="submit" className="submit_button">Submit</button>
+    render() {
+        return (
+            <div className="center_block">
+                <div className="center_top"></div>
+                <div className="center_border">
 
-                    </form>
+                    <h4 className="text">Fill in the fields</h4>
+
+                    <div className="form_block">
+                        <Form method="post">
+                            <Input type="text"
+                                   name="email"
+                                   onChange={this.handleChange}
+                                   placeholder="${mail}" />
+
+                            <Input type="password"
+                                   name="password"
+                                   placeholder="${pass}"
+                                   onChange={this.handleChange}/>
+
+                            <Input type="submit"
+                                    className="submit_button"
+                                    onClick={this.loginLogic}
+                                    value="Submit"/>
+
+                        </Form>
+                    </div>
                 </div>
             </div>
-        </div>
 
-    );
+        );
+    }
 }
 
 export default Login;

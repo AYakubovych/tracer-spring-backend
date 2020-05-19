@@ -12,8 +12,11 @@ import ddns.net.tracer.data.repository.UserRepository;
 import ddns.net.tracer.data.service.AuthorityService;
 import ddns.net.tracer.data.service.UserService;
 import ddns.net.tracer.util.exceptions.AppException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,8 +34,10 @@ import java.net.URI;
 import java.util.Collections;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 public class AuthController {
+
+    private static Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     private AuthenticationManager authenticationManager;
 
@@ -44,25 +49,28 @@ public class AuthController {
 
     private JwtTokenProvider tokenProvider;
 
-    @PostMapping("/signin")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUserEmail(),
-                        loginRequest.getUserPassword()
+                        loginRequest.getEmail(),
+                        loginRequest.getPassword()
                 )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         String jwt = tokenProvider.generateToken(authentication);
+
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
+        logger.info("/signup");
+
+        logger.info("mail check");
         if(userService.existsByEmail(signUpRequest.getEmail())) {
             return new ResponseEntity(new ApiResponse(false, "Email Address already in use!"),
                     HttpStatus.BAD_REQUEST);
@@ -73,16 +81,22 @@ public class AuthController {
                 signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPass(passwordEncoder.encode(user.getPass()));
-
         Authorities userRole = authorityService.findByAuthority(AuthoritiesName.AUTHORITIES_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
+
+        //authorities table check
+        if(userRole == null){
+            logger.error("No authorities founded");
+            return new ResponseEntity<>(new ApiResponse(false,"Authorities not founded"),
+                    HttpStatus.BAD_REQUEST);
+        }
 
         user.setRoles(Collections.singleton(userRole));
 
         User result = userService.save(user);
 
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath().path("/api/users/{id}")
+                .fromCurrentContextPath().path("/")
                 .buildAndExpand(result.getId()).toUri();
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));

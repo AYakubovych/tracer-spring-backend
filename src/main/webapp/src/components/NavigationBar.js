@@ -1,14 +1,20 @@
-import React, { useState } from "react";
-import { Nav, Navbar, NavItem } from "react-bootstrap"
-import {NavDropdown,FormControl,Button,Form} from "react-bootstrap";
-import './NavigationBar.css';
+import React, {Component, useState} from "react";
+import {Nav, Navbar, NavItem} from "react-bootstrap";
 
-import Routes from "../Routes";
 
-function NavigationBar()  {
 
-    const [isAuthenticated, userHasAuthenticated] = useState(false);
+class NavigationBar extends Component {
+    constructor(props) {
+        super(props);
+        this.handleMenuClick = this.handleMenuClick.bind(this);
+    }
 
+    handleMenuClick({ key }) {
+        if(key === "logout") {
+            this.props.onLogout();
+        }
+    }
+    render(){
     return (
         <div className="App container">
             <Navbar collapseOnSelect expand="lg" className="color-nav">
@@ -18,31 +24,23 @@ function NavigationBar()  {
                     <Nav className="mr-auto"></Nav>
 
                     <Nav>
-                        {isAuthenticated
+                        {this.props.isAuthenticated
                             ?<>
-                                <Nav.Link>Profile</Nav.Link>
-                                <NavItem onClick={handleLogout}>Logout</NavItem>
+                                <Nav.Link href="/profile">Profile</Nav.Link>
+                                <NavItem onClick={this.state.handleLogout()}>Logout</NavItem>
                             </>
                             :
                             <>
                                 <Nav.Link href="/login" style={{ color: "white" }}>Log in</Nav.Link>
-                                <Nav.Link href="" style={{ color: "white" }}>Create profile</Nav.Link>
+                                <Nav.Link href="/signup" style={{ color: "white" }}>Create profile</Nav.Link>
                             </>
                         }
 
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-            <Routes appProps={{ isAuthenticated, userHasAuthenticated }} />
         </div>
-
     );
-
-
-    function handleLogout() {
-        //Logout logic
-
-        userHasAuthenticated(false);
     }
 
 }

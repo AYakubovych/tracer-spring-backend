@@ -1,0 +1,11 @@
+.form_block{
+    margin-top: 55px;
+}
+.text {
+    margin-top: 35px;
+    text-align: center;
+    font-family: Courier New, italic;
+    font-size: 24px;
+    color: #204969;
+    font-weight: bold;
+}
