@@ -78,7 +78,7 @@ class App extends Component {
             description: "You're successfully logged in.",
         });
         this.loadCurrentUser();
-        this.props.history.push("/");
+        window.location.assign("/");
     }
 
     render(){

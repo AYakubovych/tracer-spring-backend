@@ -46,12 +46,10 @@ class Signup extends Component{
         const loginRequest = {email: this.state.email, password: this.state.password};
         login(loginRequest).then(
             res => {
-                console.log(localStorage.getItem(ACCESS_TOKEN));
-                localStorage.setItem(ACCESS_TOKEN,res.accessToken)
-                console.log(localStorage.getItem(ACCESS_TOKEN));
-                //token logic
+                localStorage.setItem(ACCESS_TOKEN,res.accessToken);
+                this.state.isAuthenticated = true;
             });
-        this.props.history.push('/');
+        window.location.assign("/profile");
     };
 
     render() {

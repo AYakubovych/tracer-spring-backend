@@ -22,6 +22,8 @@ class Login extends Component {
             .then(res => {
                 if (res.accessToken !== null) {
                     localStorage.setItem(ACCESS_TOKEN,res.accessToken);
+                    this.state.isAuthenticated = true;
+                    this.afterLogin()
                 }
             })
             .catch(error => {
@@ -40,7 +42,7 @@ class Login extends Component {
     };
 
     afterLogin(){
-
+        window.location.assign("/profile");
     }
 
     render() {

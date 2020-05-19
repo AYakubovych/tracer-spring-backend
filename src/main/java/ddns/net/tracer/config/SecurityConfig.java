@@ -83,10 +83,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/signup",
                         "/")
                 .permitAll()
-                .anyRequest()
-                .authenticated();
+                .anyRequest().authenticated();
 
-        // Add our custom JWT security filter
+
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 

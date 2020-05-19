@@ -3,8 +3,6 @@ package ddns.net.tracer.data.entities;
 
 import afu.org.checkerframework.common.aliasing.qual.Unique;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,10 +10,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -65,10 +61,10 @@ public class User implements Serializable {
     private List<Target> targets = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_authorities",
+    @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "authorities_id"))
-    private Set<Authorities> roles;
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public User(){
         this.enabled = true;
@@ -142,11 +138,11 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
-    public Set<Authorities> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Authorities> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 

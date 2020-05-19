@@ -1,15 +1,14 @@
 package ddns.net.tracer.web;
 
 import ddns.net.tracer.config.security.jwt.JwtTokenProvider;
-import ddns.net.tracer.config.security.payloads.ApiResponse;
-import ddns.net.tracer.config.security.payloads.JwtAuthenticationResponse;
-import ddns.net.tracer.config.security.payloads.LoginRequest;
-import ddns.net.tracer.config.security.payloads.SignUpRequest;
-import ddns.net.tracer.data.entities.Authorities;
-import ddns.net.tracer.data.entities.AuthoritiesName;
+import ddns.net.tracer.payloads.ApiResponse;
+import ddns.net.tracer.payloads.JwtAuthenticationResponse;
+import ddns.net.tracer.payloads.LoginRequest;
+import ddns.net.tracer.payloads.SignUpRequest;
+import ddns.net.tracer.data.entities.Role;
+import ddns.net.tracer.data.entities.RoleName;
 import ddns.net.tracer.data.entities.User;
-import ddns.net.tracer.data.repository.UserRepository;
-import ddns.net.tracer.data.service.AuthorityService;
+import ddns.net.tracer.data.service.RoleService;
 import ddns.net.tracer.data.service.UserService;
 import ddns.net.tracer.util.exceptions.AppException;
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class AuthController {
 
     private UserService userService;
 
-    private AuthorityService authorityService;
+    private RoleService roleService;
 
     private PasswordEncoder passwordEncoder;
 
@@ -81,7 +80,8 @@ public class AuthController {
                 signUpRequest.getEmail(), signUpRequest.getPassword());
 
         user.setPass(passwordEncoder.encode(user.getPass()));
-        Authorities userRole = authorityService.findByAuthority(AuthoritiesName.AUTHORITIES_USER)
+        logger.info(roleService.findByRole(RoleName.ROLE_USER).toString());
+        Role userRole = roleService.findByRole(RoleName.ROLE_USER)
                 .orElseThrow(() -> new AppException("User Role not set."));
 
         //authorities table check
@@ -111,8 +111,8 @@ public class AuthController {
         this.userService = userService;
     }
     @Autowired
-    public void setAuthorityService(AuthorityService authorityService) {
-        this.authorityService = authorityService;
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
     }
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {

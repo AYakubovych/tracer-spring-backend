@@ -74,7 +74,7 @@ public class JPAConfig {
         hibernateProperties.setProperty(
                 "hibernate.format_sql" , "true");
         hibernateProperties.setProperty(
-                "hibernate.show_sql", "true");
+                "hibernate.show_sql", "false");
         return hibernateProperties;
     }
 

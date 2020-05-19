@@ -1,4 +1,4 @@
-package ddns.net.tracer.config.security.payloads;
+package ddns.net.tracer.payloads;
 
 public class JwtAuthenticationResponse {
     private String accessToken;

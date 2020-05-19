@@ -1,5 +1,6 @@
 import React, {Component, useState} from "react";
 import {Nav, Navbar, NavItem} from "react-bootstrap";
+import {ACCESS_TOKEN} from "../constants";
 
 
 
@@ -14,6 +15,12 @@ class NavigationBar extends Component {
             this.props.onLogout();
         }
     }
+
+    handleLogout(){
+        localStorage.clear();
+        window.location.assign("/");
+    }
+
     render(){
     return (
         <div className="App container">
@@ -24,10 +31,10 @@ class NavigationBar extends Component {
                     <Nav className="mr-auto"></Nav>
 
                     <Nav>
-                        {this.props.isAuthenticated
+                        {localStorage.getItem(ACCESS_TOKEN) !== null
                             ?<>
-                                <Nav.Link href="/profile">Profile</Nav.Link>
-                                <NavItem onClick={this.state.handleLogout()}>Logout</NavItem>
+                                <Nav.Link href="/profile" style={{ color: "white" }}>Profile</Nav.Link>
+                                <Nav.Link onClick={() => this.handleLogout()} style={{ color: "white" }}>Logout</Nav.Link>
                             </>
                             :
                             <>

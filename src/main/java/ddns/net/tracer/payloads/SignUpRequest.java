@@ -1,4 +1,4 @@
-package ddns.net.tracer.config.security.payloads;
+package ddns.net.tracer.payloads;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
