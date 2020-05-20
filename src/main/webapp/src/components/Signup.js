@@ -49,6 +49,7 @@ class Signup extends Component{
                 localStorage.setItem(ACCESS_TOKEN,res.accessToken);
                 this.state.isAuthenticated = true;
             });
+        this.state.isAuthenticated = true;
         window.location.assign("/profile");
     };
 

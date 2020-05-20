@@ -1,42 +1,68 @@
-import React, { Component } from "react";
+import React, {Component, useEffect, useState} from "react";
 import {getCurrentUser} from "../util/APIUtils";
+import axios from 'axios';
+import {ACCESS_TOKEN} from "../constants";
+import './Profile.css';
+import {Nav, Navbar, NavItem} from "react-bootstrap";
 
-class Profile extends Component{
-    constructor(props) {
-        super(props);
-        this.state = {name: '',lastName:'',email:''};
-        console.log("asd");
-        this.handleUser();
-    }
+export default function Profile() {
 
-    handleUser = () => {
+    const[name,setName] = useState([]);
+    const[lastName,setLastName] = useState([]);
+    const[email,setEmail] = useState([]);
+    //header
+    let config = {
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem(ACCESS_TOKEN),
+        }};
+    useEffect( () => {
+        try{
+            /*getCurrentUser().then(res => setUser(res.data))
+            */
+            axios.get('http://localhost:8080/profile',config).then(res => {
+                setName(res.data.name);
+                setLastName(res.data.lastName);
+                setEmail(res.data.email);
+            });
+        }catch (e) {
+            console.log(e);
+        }
+    },[]);
+/*
+    componentDidMount() {
         getCurrentUser().then(
             res => {
-                console.log(res);
                 this.state.name = res.name;
                 this.state.lastName = res.lastName;
                 this.state.email = res.email;
-            })
-    };
-
-    render() {
-        return(
-            <div class = "center_block">
-                <div class="center_top"></div>
-                <div class = "center_border">
-                    <div class="text_box">
-
-                        <h4 class="in_box_text">Personal data</h4>
-                        <h4 class="in_box_text">Name: {this.state.name}</h4>
-                        <h4 class="in_box_text">Last name: {this.state.lastName}</h4>
-                        <h4 class="in_box_text">Mail: {this.state.email}</h4>
+                console.log(this.state.email);
+            }).then( () => this.state.isLoading = false);
+    } */
 
 
+    return(
+        <div className="block">
+            <div className="inside_block">
+                <div className="first_row">
+                <div className="personal_data_block">
+                    <div className="top">
+                        <h4 className="top_text">Personal data</h4>
+                    </div>
+                    <div className="qq">
+                        <h4 className="in_box_text">Name: {name}</h4>
+                        <h4 className="in_box_text">Last name: {lastName}</h4>
+                        <h4 className="in_box_text">Mail: {email}</h4>
                     </div>
                 </div>
-            </div>
-        );
-    }
 
+                    <div className="map_block">
+                        <div style={{marginTop:"120px"}}>
+                            <Nav.Link style={{color:"#204969",fontSize: "30px",textAlign: "center",justifyContent: 'center'}}>Track</Nav.Link>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    );
 }
-export default Profile;

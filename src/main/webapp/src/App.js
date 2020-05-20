@@ -85,7 +85,7 @@ class App extends Component {
         console.log(this.state.isAuthenticated);
         return (
             <div>
-                <NavigationBar isAuthenticated={this.state.isAuthenticated} onLogin={this.handleLogin}/>
+                <NavigationBar appProps={this.state.isAuthenticated} onLogin={this.handleLogin}/>
                 <Routes appProps = {this.state.isAuthenticated}/>
             </div>
         );

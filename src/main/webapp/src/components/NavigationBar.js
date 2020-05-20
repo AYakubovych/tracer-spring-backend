@@ -19,6 +19,7 @@ class NavigationBar extends Component {
     handleLogout(){
         localStorage.clear();
         window.location.assign("/");
+        this.state.isAuthenticated = false;
     }
 
     render(){

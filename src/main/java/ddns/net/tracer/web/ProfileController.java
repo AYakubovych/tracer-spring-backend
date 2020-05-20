@@ -23,7 +23,7 @@ public class ProfileController {
 
     private UserService userService;
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     @PreAuthorize("hasRole('USER')")
     public UserData profile(@CurrentUser UserPrincipal currentUser){
 

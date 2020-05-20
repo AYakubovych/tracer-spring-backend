@@ -42,6 +42,7 @@ class Login extends Component {
     };
 
     afterLogin(){
+        this.state.isAuthenticated = true;
         window.location.assign("/profile");
     }
 

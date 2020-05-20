@@ -15,9 +15,8 @@ export default function Routes({ appProps }) {
                 <AppliedRoute path="/login" exact component={Login} appProps={appProps} />
                 <AppliedRoute path="/" exact component={Home} appProps={appProps} />
                 <AppliedRoute path="/signup" exact component={Signup} appProps={appProps} />
-                *<AppliedRoute path="/profile" exact component={Profile} appProps={appProps} /> */}
-
-                { /* Finally, catch all unmatched routes */ }
+                <AppliedRoute path="/profile" exact component={Profile} appProps={appProps} />
+                
                 <Route component={Home} />
             </Switch>
         </BrowserRouter>
