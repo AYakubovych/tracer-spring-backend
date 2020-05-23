@@ -3,6 +3,7 @@ import { API_BASE_URL,ACCESS_TOKEN} from '../constants';
 import { Form, Input, Button,notification } from 'antd';
 import { login } from '../util/APIUtils';
 
+
 import './Login.css';
 
 
@@ -22,7 +23,6 @@ class Login extends Component {
             .then(res => {
                 if (res.accessToken !== null) {
                     localStorage.setItem(ACCESS_TOKEN,res.accessToken);
-                    this.state.isAuthenticated = true;
                     this.afterLogin()
                 }
             })
@@ -42,7 +42,6 @@ class Login extends Component {
     };
 
     afterLogin(){
-        this.state.isAuthenticated = true;
         window.location.assign("/profile");
     }
 

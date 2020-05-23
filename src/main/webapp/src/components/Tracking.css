@@ -1,0 +1,71 @@
+.block{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.inside_block{
+    width: 1200px;
+    height: 980px;
+    float: right;
+    display: inline;
+    position: relative;
+}
+.target_img{
+    position: absolute;
+    top: 66px;
+    left: 16px;
+    width:189px;
+    height:252px;
+    background-image: url("../img/map.png");
+}
+.left_wrap{
+    height: auto;
+    width: auto;
+    position: relative;
+}
+.main_left{
+    margin-top: 16px;
+    width: 588px;
+    height: 334px;
+    background:white;
+    float:left;
+    position: relative;
+    border-width:thin;
+    border-style:solid;
+    border-color:#204969;
+    border-radius: 13px;
+}
+.data{
+    position: absolute;
+    top: 66px;
+    left: 221px;
+}
+.target_list{
+    margin-top: 20px;
+    position: absolute;
+    top: 348px;
+    width: 285px;
+    height: 476px;
+    border-width:thin;
+    border-style:solid;
+    border-color:#204969;
+    border-radius: 12px;
+}
+.marker_div{
+    margin-top: 20px;
+    position: absolute;
+    top: 348px;
+    left: 301px;
+    width: 285px;
+    height: 476px;
+    border-width:thin;
+    border-style:solid;
+    border-color:#204969;
+    border-radius: 12px;
+}
+.data_text{
+    text-align:left;
+    font-size: 20px;
+    color: #204969
+}

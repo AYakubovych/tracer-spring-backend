@@ -4,6 +4,7 @@ import './Signup.css';
 import {ACCESS_TOKEN, API_BASE_URL} from "../constants";
 import {signup,login} from "../util/APIUtils";
 
+
 class Signup extends Component{
 
     constructor(props) {
@@ -49,7 +50,6 @@ class Signup extends Component{
                 localStorage.setItem(ACCESS_TOKEN,res.accessToken);
                 this.state.isAuthenticated = true;
             });
-        this.state.isAuthenticated = true;
         window.location.assign("/profile");
     };
 

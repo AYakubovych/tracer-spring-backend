@@ -3,17 +3,11 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Layout, notification } from 'antd';
 import './NavigationBar.css';
-import {
-    Route,
-    withRouter,
-    Switch
-} from 'react-router-dom';
 import Routes from "./Routes";
 import { getCurrentUser } from './util/APIUtils';
 import { ACCESS_TOKEN } from './constants';
 import LoadingIndicator from './common/LoadingIndicator';
 import NavigationBar from "./components/NavigationBar";
-import Login from "./components/Login";
 
 class App extends Component {
     constructor(props) {
@@ -82,7 +76,6 @@ class App extends Component {
     }
 
     render(){
-        console.log(this.state.isAuthenticated);
         return (
             <div>
                 <NavigationBar appProps={this.state.isAuthenticated} onLogin={this.handleLogin}/>

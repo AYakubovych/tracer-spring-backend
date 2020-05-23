@@ -42,7 +42,7 @@ export default function Profile() {
 
     return(
         <div className="block">
-            <div className="inside_block">
+            <div className="block_inside">
                 <div className="first_row">
                 <div className="personal_data_block">
                     <div className="top">
@@ -57,7 +57,7 @@ export default function Profile() {
 
                     <div className="map_block">
                         <div style={{marginTop:"120px"}}>
-                            <Nav.Link style={{color:"#204969",fontSize: "30px",textAlign: "center",justifyContent: 'center'}}>Track</Nav.Link>
+                            <Nav.Link style={{color:"#204969",fontSize: "30px",textAlign: "center",justifyContent: 'center'}} href="/tracking">Track</Nav.Link>
                         </div>
                     </div>
                 </div>

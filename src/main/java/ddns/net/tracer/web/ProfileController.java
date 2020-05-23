@@ -28,7 +28,6 @@ public class ProfileController {
     public UserData profile(@CurrentUser UserPrincipal currentUser){
 
         User user = userService.findOneByEmail(currentUser.getEmail());
-
         return new UserData(user.getName(),user.getLast_name(),user.getEmail());
     }
 

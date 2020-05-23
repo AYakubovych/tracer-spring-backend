@@ -25,7 +25,7 @@ class NavigationBar extends Component {
     render(){
     return (
         <div className="App container">
-            <Navbar collapseOnSelect expand="lg" className="color-nav">
+            <Navbar collapseOnSelect expand="lg" className="color-nav" style={{minWidth:'1280px',marginLeft: '-80px',fontSize: '18px'}}>
                 <Navbar.Brand style={{ color: "white" }} href="/">Tracer</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
