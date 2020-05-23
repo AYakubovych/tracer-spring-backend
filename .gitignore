@@ -3,6 +3,9 @@ target/
 !**/src/main/**
 !**/src/test/**
 .mvn
+/src/main/resources/application.properties
+/src/main/webapp/src/constants/mapKey.ts
+
 
 ### STS ###
 .apt_generated

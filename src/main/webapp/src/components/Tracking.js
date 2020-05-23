@@ -1,9 +1,7 @@
 import React, {Component, useEffect, useState} from "react";
-import {ACCESS_TOKEN} from "../constants";
-import axios from "axios";
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
-import {GOOGLE_API_KEY} from "../constants";
+import {GOOGLE_API_KEY} from "../constants/mapKey";
 import "./Tracking.css"
 
 export class Tracking extends Component{
