@@ -8,7 +8,6 @@ export const  ProtectedRoute = ({component: C,...appProps}) => {
 
         <Route {...appProps} render={
             (props) => {
-                console.log("Prot route:" + appProps.isAuthenticated);
                 if(localStorage.getItem(ACCESS_TOKEN) !== null){
                     return   <C {...props} />
                 }else{

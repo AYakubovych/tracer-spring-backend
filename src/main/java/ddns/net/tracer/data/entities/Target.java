@@ -1,6 +1,8 @@
 package ddns.net.tracer.data.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ public class Target implements  Serializable {
     private String phone;
 
     @Column
+    @JsonIgnore
     @ManyToMany(mappedBy = "targets")
     private List<User> users = new ArrayList<>();
 

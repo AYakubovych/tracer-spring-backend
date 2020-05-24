@@ -14,7 +14,7 @@ class Signup extends Component{
     handleChange = (event) => {
         this.setState({[event.target.name] : event.target.value});
     };
-    singup = () => {
+    doSignup = () => {
         const singUpRequest = {email: this.state.email,
             password: this.state.password,
             name: this.state.name,
@@ -83,7 +83,7 @@ class Signup extends Component{
 
                             <Input type="submit"
                                    className="submit_button"
-                                   onClick={this.singup}
+                                   onClick={this.doSignup}
                                    value="Submit"/>
 
                         </Form>

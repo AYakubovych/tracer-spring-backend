@@ -3,9 +3,18 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 
 import {GOOGLE_API_KEY} from "../constants/mapKey";
 import "./Tracking.css"
+import {getSubTargetsList} from "../util/APIUtils";
+import TargetsList from "../common/TargetsList";
+import TargetListHOC from "../common/TargetListHOC";
 
 export class Tracking extends Component{
+    constructor(props) {
+        super(props);
+    }
 
+    handleClick(id){
+        console.log(id)
+    }
 
     render() {
         return (
@@ -32,7 +41,7 @@ export class Tracking extends Component{
                                 <div className="top">
                                     <h4 className="top_text">Target's list</h4>
                                 </div>
-                                {/**/}
+                                < TargetListHOC onClick = {this.handleClick}/>
                             </div>
                             <div className="marker_div">
                                 <div className="top">
