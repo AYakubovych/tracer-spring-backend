@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {Form, Input, notification} from "antd";
 import './Signup.css';
-import {ACCESS_TOKEN, API_BASE_URL} from "../constants";
+import {ACCESS_TOKEN} from "../constants";
 import {signup,login} from "../util/APIUtils";
 
 
@@ -48,7 +48,7 @@ class Signup extends Component{
         login(loginRequest).then(
             res => {
                 localStorage.setItem(ACCESS_TOKEN,res.accessToken);
-                this.state.isAuthenticated = true;
+                this.setState({...this.state, isAuthenticated: true});
             });
         window.location.assign("/profile");
     };

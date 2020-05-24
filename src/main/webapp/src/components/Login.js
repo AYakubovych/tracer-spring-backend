@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { API_BASE_URL,ACCESS_TOKEN} from '../constants';
-import { Form, Input, Button,notification } from 'antd';
+import {ACCESS_TOKEN} from '../constants';
+import { Form, Input,notification } from 'antd';
 import { login } from '../util/APIUtils';
 
 
@@ -58,11 +58,11 @@ class Login extends Component {
                             <Input type="text"
                                    name="email"
                                    onChange={this.handleChange}
-                                   placeholder="${mail}" />
+                                   placeholder="Mail" />
 
                             <Input type="password"
                                    name="password"
-                                   placeholder="${pass}"
+                                   placeholder="Pass"
                                    onChange={this.handleChange}/>
 
                             <Input type="submit"

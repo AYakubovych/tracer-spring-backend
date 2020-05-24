@@ -12,11 +12,31 @@ public class SubTarget {
     private long id;
     private String name;
     private String lastName;
+    private String email;
+    private String phone;
 
     public SubTarget(Target target){
         this.id = target.getId();
         this.name = target.getName();
         this.lastName = target.getSurname();
+        this.email = target.getEmail();
+        this.phone = target.getPhone();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public long getId() {

@@ -1,12 +1,11 @@
-import React, {Component, useState} from "react";
+import React, {Component} from "react";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Layout, notification } from 'antd';
+import {  notification } from 'antd';
 import './NavigationBar.css';
 import Routes from "./Routes";
 import { getCurrentUser } from './util/APIUtils';
 import { ACCESS_TOKEN } from './constants';
-import LoadingIndicator from './common/LoadingIndicator';
 import NavigationBar from "./components/NavigationBar";
 
 class App extends Component {
@@ -46,7 +45,7 @@ class App extends Component {
         });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadCurrentUser();
     }
 

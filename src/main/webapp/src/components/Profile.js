@@ -1,9 +1,9 @@
-import React, {Component, useEffect, useState} from "react";
-import {getCurrentUser} from "../util/APIUtils";
+import React, {useEffect, useState} from "react";
+
 import axios from 'axios';
 import {ACCESS_TOKEN} from "../constants";
 import './Profile.css';
-import {Nav, Navbar, NavItem} from "react-bootstrap";
+import {Nav} from "react-bootstrap";
 
 export default function Profile() {
 

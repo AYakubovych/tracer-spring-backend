@@ -1,5 +1,5 @@
 import TargetsList from "./TargetsList";
-import React ,{Component, useEffect, useState} from "react";
+import React ,{Component} from "react";
 import {getSubTargetsList} from "../util/APIUtils";
 
 class TargetListHOC extends Component {

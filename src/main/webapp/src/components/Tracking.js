@@ -1,10 +1,9 @@
-import React, {Component, useEffect, useState} from "react";
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import React, {Component} from "react";
+import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
 
 import {GOOGLE_API_KEY} from "../constants/mapKey";
 import "./Tracking.css"
-import {getSubTargetsList} from "../util/APIUtils";
-import TargetsList from "../common/TargetsList";
+
 import TargetListHOC from "../common/TargetListHOC";
 
 export class Tracking extends Component{
@@ -13,6 +12,7 @@ export class Tracking extends Component{
     }
 
     handleClick(id){
+        {/**/}
         console.log(id)
     }
 
@@ -54,7 +54,7 @@ export class Tracking extends Component{
 
                     <div style={{width: '580px', float:'right'}}>
                         <Map google={this.props.google}
-                             style={{width: '588px',
+                             style={{maxWidth: '588px',
                                  height: '826px',
                                  position: 'absolute',
                                  right: '1px',
@@ -69,9 +69,9 @@ export class Tracking extends Component{
                              }}zoom={4}>
 
 
-                            <InfoWindow onClose={this.onInfoWindowClose}>
+                            {/*<InfoWindow onClose={this.onInfoWindowClose}>
 
-                            </InfoWindow>
+                            </InfoWindow>*/}
                         </Map>
                     </div> {/*end of map div*/}
                 </div>

@@ -1,5 +1,5 @@
-import React, {Component, useState} from "react";
-import {Nav, Navbar, NavItem} from "react-bootstrap";
+import React, {Component} from "react";
+import {Nav, Navbar} from "react-bootstrap";
 import {ACCESS_TOKEN} from "../constants";
 
 
@@ -19,7 +19,7 @@ class NavigationBar extends Component {
     handleLogout(){
         localStorage.clear();
         window.location.assign("/");
-        this.state.isAuthenticated = false;
+        this.setState({...this.state, isAuthenticated: false})
     }
 
     render(){

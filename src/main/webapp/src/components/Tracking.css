@@ -2,11 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 .inside_block{
     width: 1200px;
-    height: 980px;
+    height: 850px;
     float: right;
     display: inline;
     position: relative;
