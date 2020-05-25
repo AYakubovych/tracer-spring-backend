@@ -1,23 +1,23 @@
 import React, {Component} from "react";
 import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
-
 import {GOOGLE_API_KEY} from "../constants/mapKey";
 import "./Tracking.css"
 
-import TargetListHOC from "../common/TargetListHOC";
+import TargetListHOC from "../common/tracking/TargetListHOC";
+import {getSubTargetInfo} from "../util/APIUtils";
+import TargetInfoHOC from "../common/tracking/TargetInfoHOC";
 
 export class Tracking extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            id : 0
+            index : 0
         };
     }
 
-    handleClick(id){
-        {/**/}
-        this.state.id = id;
-        console.log(this.state.id);
+    handleClick(index){
+        console.log("click")
+        this.setState(state =>({index : index}));
     }
 
     render() {
@@ -26,19 +26,7 @@ export class Tracking extends Component{
                 <div className="inside_block">
                     <div className="left_wrap">
                         <div className="main_left">
-                            <div className="top">
-                                <h4 className="top_text">Current target</h4>
-                            </div>
-                            <div className="target_img"></div>
-                            <div className="data">
-                                { /*<input type="image" src="${pageContext.request.contextPath}/images/settings.png"
-                                onClick="location.href = '/profile';" width="24" height="24"
-                                alt="Settings"> */}
-                                <h4 className="data_text">Name:</h4>
-                                <h4 className="data_text">Surname</h4>
-                                <h4 className="data_text">Email</h4>
-                                <h4 className="data_text">Phone</h4>
-                            </div>
+                            <TargetInfoHOC key={this.state.index} index={this.state.index}/>
                         </div> {/*end of main_left div*/}
 
                             <div className="target_list">

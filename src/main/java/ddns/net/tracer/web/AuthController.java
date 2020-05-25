@@ -51,7 +51,8 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
-        logger.info("/login");
+        logger.info("Authentication for " + loginRequest.getEmail());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getEmail(),
@@ -61,7 +62,8 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
-        logger.info("jwt ok");
+
+        logger.info("JWT for " + loginRequest.getEmail() + " created and sended");
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }
@@ -69,7 +71,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 
-        logger.info("/signup");
+        logger.info("SignUp for " + signUpRequest.getEmail());
 
         logger.info("mail check");
         if(userService.existsByEmail(signUpRequest.getEmail())) {
@@ -100,6 +102,7 @@ public class AuthController {
         URI location = ServletUriComponentsBuilder
                 .fromCurrentContextPath().path("/")
                 .buildAndExpand(result.getId()).toUri();
+        logger.info("Account created for " + user.getEmail());
 
         return ResponseEntity.created(location).body(new ApiResponse(true, "User registered successfully"));
     }

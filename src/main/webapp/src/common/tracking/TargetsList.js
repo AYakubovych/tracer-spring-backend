@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../node_modules/react-bootstrap-table/dist/react-bootstrap-table-all.min.css'
+import 'react-bootstrap-table/dist/react-bootstrap-table-all.min.css'
 import {Button} from "react-bootstrap";
 
 const TargetsList = (props) => {

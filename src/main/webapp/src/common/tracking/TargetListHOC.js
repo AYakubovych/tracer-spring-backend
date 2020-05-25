@@ -1,6 +1,6 @@
 import TargetsList from "./TargetsList";
 import React ,{Component} from "react";
-import {getSubTargetsList} from "../util/APIUtils";
+import {getSubTargetsList} from "../../util/APIUtils";
 
 class TargetListHOC extends Component {
     constructor(props) {

@@ -50,13 +50,24 @@ public class TrackingController {
                                  @PathVariable(required = true) int targetIndex){
 
         User user = userService.findOneByEmail(currentUser.getEmail());
+        logger.info("User: " + user.getEmail());
 
         long targetId = user.getTargets().get(targetIndex).getId();
-        locationDataService.findAllByTargetId(targetId).forEach(
-                (location) -> System.out.println(location.getDate())
-        );
 
-        return null ;
+        List<String> response = new ArrayList<>();
+        locationDataService.findAllByTargetId(targetId).forEach(
+                (location) -> response.add(location.getDate())
+        );
+        return response ;
+    }
+
+    @GetMapping(produces = "application/json",value = "/target/{targetIndex}/info")
+    @PreAuthorize("hasRole('USER')")
+    public SubTarget targetInfo(@CurrentUser UserPrincipal currentUser,
+                                @PathVariable(required = true) int targetIndex){
+
+        User user = userService.findOneByEmail(currentUser.getEmail());
+        return new SubTarget(user.getTargets().get(targetIndex));
     }
 
     @Autowired
