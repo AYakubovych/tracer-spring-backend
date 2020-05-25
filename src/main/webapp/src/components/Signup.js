@@ -20,13 +20,14 @@ class Signup extends Component{
             name: this.state.name,
             lastName: this.state.lastName
         };
+        console.log("doSignup")
         signup(singUpRequest)
             .then(res => {
                 console.log(res);
                 if(res.success === true){
                     this.afterSignUp();
                 }
-
+                this.redirect()
             })
             .catch(error => {
                 if (error.status === 401) {
@@ -43,14 +44,21 @@ class Signup extends Component{
             })
     };
 
+    redirect = () =>{
+        setTimeout(() => {
+            console.log("redirect");
+            window.location.assign("/profile");
+        },1000)
+    }
+
     afterSignUp = () => {
+        console.log("afterSingUp")
         const loginRequest = {email: this.state.email, password: this.state.password};
         login(loginRequest).then(
             res => {
                 localStorage.setItem(ACCESS_TOKEN,res.accessToken);
                 this.setState({...this.state, isAuthenticated: true});
             });
-        window.location.assign("/profile");
     };
 
     render() {

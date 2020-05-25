@@ -7,9 +7,9 @@ const TargetsList = (props) => {
     return (
         <div style={{overflowY: 'auto', overflowX: 'hidden',height : '420px'}}>
 
-            {props.data.map((target) => {
-                return (<Button key={target.id} style={{width: '283px',backgroundColor:'white',color:'#204969',borderColor:'#204969'}}
-                                onClick={() => props.onClick(target.id)}
+            {props.data.map((target,key) => {
+                return (<Button key={key} style={{width: '283px',backgroundColor:'white',color:'#204969',borderColor:'#204969'}}
+                                onClick={() => props.onClick(key)}
                 >{target.name} {target.lastName}</Button>)
 
             })}

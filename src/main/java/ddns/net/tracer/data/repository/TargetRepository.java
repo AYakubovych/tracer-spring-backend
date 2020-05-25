@@ -8,6 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface TargetRepository extends CrudRepository<Target,Integer> {
 
     Target findOneByName(String name);
-    Target findOneById(int id);
+    Target findOneById(long id);
 
 }

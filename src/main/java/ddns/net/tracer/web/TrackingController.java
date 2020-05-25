@@ -1,5 +1,6 @@
 package ddns.net.tracer.web;
 
+import com.sun.istack.NotNull;
 import ddns.net.tracer.config.security.CurrentUser;
 import ddns.net.tracer.config.security.UserPrincipal;
 import ddns.net.tracer.data.entities.User;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +42,21 @@ public class TrackingController {
         });
 
         return list ;
+    }
+
+    @GetMapping(produces = "application/json",value = "/target/{targetIndex}/days")
+    @PreAuthorize("hasRole('USER')")
+    public List<String> daysList(@CurrentUser UserPrincipal currentUser,
+                                 @PathVariable(required = true) int targetIndex){
+
+        User user = userService.findOneByEmail(currentUser.getEmail());
+
+        long targetId = user.getTargets().get(targetIndex).getId();
+        locationDataService.findAllByTargetId(targetId).forEach(
+                (location) -> System.out.println(location.getDate())
+        );
+
+        return null ;
     }
 
     @Autowired

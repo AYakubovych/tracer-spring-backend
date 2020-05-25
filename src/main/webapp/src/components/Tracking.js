@@ -9,11 +9,15 @@ import TargetListHOC from "../common/TargetListHOC";
 export class Tracking extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            id : 0
+        };
     }
 
     handleClick(id){
         {/**/}
-        console.log(id)
+        this.state.id = id;
+        console.log(this.state.id);
     }
 
     render() {
@@ -41,7 +45,7 @@ export class Tracking extends Component{
                                 <div className="top">
                                     <h4 className="top_text">Target's list</h4>
                                 </div>
-                                < TargetListHOC onClick = {this.handleClick}/>
+                                < TargetListHOC onClick = {this.handleClick.bind(this)}/>
                             </div>
                             <div className="marker_div">
                                 <div className="top">
