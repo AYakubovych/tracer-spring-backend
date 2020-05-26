@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import TargetsList from "./TargetsList";
 import {getSubTargetInfo} from "../../util/APIUtils";
 import TargetInfo from "./TargetInfo";
 
@@ -21,14 +20,11 @@ class TargetInfoHOC extends Component {
     }
 
     fetchInfo (index){
-        this.setState({...this.state, isFetching: true});
         getSubTargetInfo(index).then(res => {
-            this.setState({info : res, isFetching: false});
-        })
-            .catch(e => {
+            this.setState({info : res});
+        }).catch(e => {
                 console.log(e);
-                this.setState({...this.state, isFetching: false});
-            });
+        });
     }
 }
 export default TargetInfoHOC;

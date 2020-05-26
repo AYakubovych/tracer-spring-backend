@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import {Map, InfoWindow, GoogleApiWrapper,Marker} from 'google-maps-react';
-import {GOOGLE_API_KEY} from "../constants/mapKey";
 import "./Tracking.css"
 
 import TargetListHOC from "../common/tracking/TargetListHOC"
@@ -25,16 +23,13 @@ export class Tracking extends Component{
     }
 
     handleListClick(index){
-        this.setState(state =>({day : ''}));
-        this.setState(state =>({time : ''}));
-        this.setState(state =>({index : index}));
+        this.setState(state =>({day : '',time : '',index : index}));
     }
 
     setDay(day){
         {/*clicker need to fix bug with same day value re-render*/}
         this.state.clicker--;
-        this.setState(state =>({time : ''}));
-        this.setState(state =>({day : day}));
+        this.setState(state =>({time : '',day : day}));
     }
 
     setTime(time){
@@ -47,18 +42,15 @@ export class Tracking extends Component{
         this.fetchLocation()
     }
 
-
     fetchLocation() {
         getLocation(this.state.index,this.state.day,this.state.time)
             .then(res => {
                 this.setState({lng: res.longitude, lat : res.latitude})
-                console.log("Data get: " + res.longitude + " " + res.latitude);
             })
             .catch(e => {
                 console.log(e);
             });
     }
-
 
     render() {
         return (
@@ -69,7 +61,6 @@ export class Tracking extends Component{
                             <TargetInfoHOC key={this.state.index}
                                            index={this.state.index}/>
                         </div> {/*end of main_left div*/}
-
                             <div className="target_list">
                                 <div className="top">
                                     <h4 className="top_text">Target's list</h4>
@@ -88,9 +79,7 @@ export class Tracking extends Component{
                                          index={this.state.index}
                                          handleTimeChange={this.setTime.bind(this)}/>
                                  <button onClick={() => this.handleButtonClick()}>Test</button>
-
                             </div>
-
                         </div>
                     {/*Map*/}
                     <div style={{width: '580px', float:'right'}}>

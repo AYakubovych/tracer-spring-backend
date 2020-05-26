@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import {getSubTargetInfo, getTimes} from "../../util/APIUtils";
+import {getTimes} from "../../util/APIUtils";
 import TimeOption from "./TimeOption";
-import DaysOption from "./DaysOption";
 
 class TimeHOC extends Component {
     constructor(props) {
@@ -20,20 +19,15 @@ class TimeHOC extends Component {
     componentDidMount() {
         const day = this.props.day;
         const index = this.props.index;
-        console.log(index + " " + day);
         this.fetchTimes(index, day)
     }
 
     fetchTimes (index,day) {
-            this.setState({...this.state, isFetching: true});
-            getTimes(index,day).then(res => {
-                this.setState({times : res, isFetching: false});
-                console.log(res);
-            })
-                .catch(e => {
-                    console.log(e);
-                    this.setState({...this.state, isFetching: false});
-                });
+        getTimes(index,day).then(res => {
+            this.setState({times : res});
+        }).catch(e => {
+            console.log(e);
+        });
     }
 }
 export default TimeHOC;

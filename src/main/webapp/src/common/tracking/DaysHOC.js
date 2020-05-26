@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import TargetInfo from "./TargetInfo";
 import {getDays} from "../../util/APIUtils";
 import DaysOption from "./DaysOption";
 
@@ -23,13 +22,11 @@ class DaysHOC extends Component {
     }
 
     fetchDays (index){
-        this.setState({...this.state, isFetching: true});
         getDays(index).then(res => {
-            this.setState({days : res, isFetching: false});
+            this.setState({days : res});
         })
             .catch(e => {
                 console.log(e);
-                this.setState({...this.state, isFetching: false});
             });
     }
 }

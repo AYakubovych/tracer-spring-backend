@@ -14,7 +14,6 @@ const TimeOption = (props) => {
                 <option value="--">Chose time</option>
                 { props.times.map((target,key) => {
                     return (<option key={key} value={target}>{target}</option>)
-
                 })}
             </select>
         </div>

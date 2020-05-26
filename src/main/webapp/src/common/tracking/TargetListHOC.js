@@ -20,15 +20,11 @@ class TargetListHOC extends Component {
     }
 
     fetchUsers = () => {
-
-        this.setState({...this.state, isFetching: true});
-
         getSubTargetsList().then(res => {
-            this.setState({targets: res, isFetching: false})
+            this.setState({targets: res})
         })
         .catch(e => {
             console.log(e);
-            this.setState({...this.state, isFetching: false});
         });
     }
 }

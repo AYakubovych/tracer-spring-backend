@@ -1,8 +1,6 @@
 import React, {Component} from "react";
-import {getLocation} from "../../util/APIUtils";
 import {GoogleApiWrapper, Map, Marker} from "google-maps-react";
 import {GOOGLE_API_KEY} from "../../constants/mapKey";
-
 
 class MapHOC extends Component {
     constructor(props) {
@@ -37,8 +35,6 @@ class MapHOC extends Component {
            return  {lat : props.lat,lng : props.lng,zoom : 14}
         }else return null;
     }
-
-
 }
 
 export default GoogleApiWrapper({
