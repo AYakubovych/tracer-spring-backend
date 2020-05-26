@@ -1,0 +1,12 @@
+.list_item{
+    width: 283px;
+    background-color : white;
+    color: #204969;
+    border-color : #204969;
+    border-radius : 0px;
+}
+.add_button{
+    background-color : #1F6961;
+    color : white;
+    border-color : #1F6961;
+}

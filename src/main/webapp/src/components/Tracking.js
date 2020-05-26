@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Map, InfoWindow, GoogleApiWrapper} from 'google-maps-react';
+import {Map, InfoWindow, GoogleApiWrapper,Marker} from 'google-maps-react';
 import {GOOGLE_API_KEY} from "../constants/mapKey";
 import "./Tracking.css"
 
@@ -8,6 +8,7 @@ import TargetInfoHOC from "../common/tracking/TargetInfoHOC";
 import DaysHOC from "../common/tracking/DaysHOC";
 import TimeHOC from "../common/tracking/TimeHOC";
 import {getLocation} from "../util/APIUtils";
+import MapHOC from "../common/tracking/MapHOC";
 
 export class Tracking extends Component{
     constructor(props) {
@@ -16,7 +17,10 @@ export class Tracking extends Component{
             index : 0,
             day: '',
             time:'',
-            clicker : -1
+            clicker : -1,
+            isMarkerShow : false,
+            lng : 0.0,
+            lat : 0.0
         };
     }
 
@@ -39,20 +43,22 @@ export class Tracking extends Component{
 
     /*Marker button handler*/
     handleButtonClick(){
-        const index = this.state.index;
-        const day = this.state.day;
-        const time = this.state.time;
-        const longitude = '';
-        const latitude = '';
+        this.setState(state => ({isMarkerShow : true}))
+        this.fetchLocation()
+    }
 
-        if(day.length > 0 && time.length > 0){
-            getLocation(index,day,time).then(
-                (res) => console.log(res)
-            ).catch(e => {
+
+    fetchLocation() {
+        getLocation(this.state.index,this.state.day,this.state.time)
+            .then(res => {
+                this.setState({lng: res.longitude, lat : res.latitude})
+                console.log("Data get: " + res.longitude + " " + res.latitude);
+            })
+            .catch(e => {
                 console.log(e);
             });
-        }
     }
+
 
     render() {
         return (
@@ -81,33 +87,17 @@ export class Tracking extends Component{
                                          day={this.state.day}
                                          index={this.state.index}
                                          handleTimeChange={this.setTime.bind(this)}/>
-                                <button onClick={() => this.handleButtonClick()}>Test</button>
+                                 <button onClick={() => this.handleButtonClick()}>Test</button>
 
                             </div>
 
                         </div>
                     {/*Map*/}
                     <div style={{width: '580px', float:'right'}}>
-                        <Map google={this.props.google}
-                             style={{maxWidth: '588px',
-                                 height: '826px',
-                                 position: 'absolute',
-                                 right: '1px',
-                                 borderWidth:'thin',
-                                 borderStyle:'solid',
-                                 borderColor:'#204969',
-                                 borderRadius: '13px',
-                                 marginTop: '16px'}}
-                             initialCenter={{
-                                 lat: 52.425962,
-                                 lng: 18.670546
-                             }}zoom={4}>
-
-
-                            {/*<InfoWindow onClose={this.onInfoWindowClose}>
-
-                            </InfoWindow>*/}
-                        </Map>
+                        <MapHOC key={this.state.lat}
+                                isMarkerShow={this.state.isMarkerShow}
+                                lat={this.state.lat}
+                                lng={this.state.lng}/>
                     </div> {/*end of map div*/}
                 </div>
             </div>
@@ -115,6 +105,4 @@ export class Tracking extends Component{
     }
 }
 
-export default GoogleApiWrapper({
-    apiKey: (GOOGLE_API_KEY)
-})(Tracking)
+export default Tracking;
