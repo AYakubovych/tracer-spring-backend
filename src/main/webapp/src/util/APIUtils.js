@@ -64,7 +64,37 @@ export function getSubTargetInfo(index) {
         return Promise.reject("No access token set.");
     }
     return request({
-        url: API_BASE_URL + "/tracking/target/" + index + "/info",
+        url: API_BASE_URL + "/tracking/target/info/" + index ,
+        method: 'GET'
+    });
+}
+
+export function getDays(index) {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+    return request({
+        url: API_BASE_URL + "/tracking/target/days/" + index ,
+        method: 'GET'
+    });
+}
+
+export function getTimes(index,day) {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+    return request({
+        url: API_BASE_URL + "/tracking/target/times/" + index + "/" + day,
+        method: 'GET'
+    });
+}
+
+export function getLocation(index,day,time) {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+    return request({
+        url: API_BASE_URL + "/tracking/target/" + index + "/" + day + "/" + time,
         method: 'GET'
     });
 }

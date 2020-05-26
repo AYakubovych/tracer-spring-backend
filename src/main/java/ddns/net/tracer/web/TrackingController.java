@@ -1,12 +1,13 @@
 package ddns.net.tracer.web;
 
-import com.sun.istack.NotNull;
 import ddns.net.tracer.config.security.CurrentUser;
 import ddns.net.tracer.config.security.UserPrincipal;
+import ddns.net.tracer.data.entities.LocationData;
 import ddns.net.tracer.data.entities.User;
 import ddns.net.tracer.data.service.LocationDataService;
 import ddns.net.tracer.data.service.TargetService;
 import ddns.net.tracer.data.service.UserService;
+import ddns.net.tracer.payloads.LocationResponse;
 import ddns.net.tracer.payloads.SubTarget;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,13 +45,22 @@ public class TrackingController {
         return list ;
     }
 
-    @GetMapping(produces = "application/json",value = "/target/{targetIndex}/days")
+    @GetMapping(produces = "application/json",value = "/target/info/{targetIndex}")
+    @PreAuthorize("hasRole('USER')")
+    public SubTarget targetInfo(@CurrentUser UserPrincipal currentUser,
+                                @PathVariable(required = true) int targetIndex){
+
+        User user = userService.findOneByEmail(currentUser.getEmail());
+        return new SubTarget(user.getTargets().get(targetIndex));
+    }
+
+    @GetMapping(produces = "application/json",value = "/target/days/{targetIndex}")
     @PreAuthorize("hasRole('USER')")
     public List<String> daysList(@CurrentUser UserPrincipal currentUser,
                                  @PathVariable(required = true) int targetIndex){
 
+        logger.info("Creating days list for user: " + currentUser.getEmail());
         User user = userService.findOneByEmail(currentUser.getEmail());
-        logger.info("User: " + user.getEmail());
 
         long targetId = user.getTargets().get(targetIndex).getId();
 
@@ -58,16 +68,47 @@ public class TrackingController {
         locationDataService.findAllByTargetId(targetId).forEach(
                 (location) -> response.add(location.getDate())
         );
+
+        logger.info("Days list send for user: " + currentUser.getEmail());
         return response ;
     }
 
-    @GetMapping(produces = "application/json",value = "/target/{targetIndex}/info")
+    @GetMapping(produces = "application/json",value = "/target/times/{targetIndex}/{day}")
     @PreAuthorize("hasRole('USER')")
-    public SubTarget targetInfo(@CurrentUser UserPrincipal currentUser,
-                                @PathVariable(required = true) int targetIndex){
+    public List<String> timesList(@CurrentUser UserPrincipal currentUser,
+                                  @PathVariable(required = true) int targetIndex,
+                                  @PathVariable(required = true) String day){
+
+        logger.info("Creating times list for user: " + currentUser.getEmail());
+        User user = userService.findOneByEmail(currentUser.getEmail());
+
+        long targetId = user.getTargets().get(targetIndex).getId();
+
+        List<String> response = new ArrayList<>();
+        locationDataService.findAllByTargetIdAndDate(targetId,day).forEach(
+                (location) -> response.add(location.getTime())
+        );
+
+        logger.info("Times list send for user: " + currentUser.getEmail());
+        return response ;
+    }
+
+
+    @GetMapping(produces = "application/json",value = "/target/{index}/{day}/{time}")
+    @PreAuthorize("hasRole('USER')")
+    public LocationResponse locationData(@CurrentUser UserPrincipal currentUser,
+                                         @PathVariable(required = true) int index,
+                                         @PathVariable(required = true) String day,
+                                         @PathVariable(required = true) String time){
+
+        logger.info("Creating LocationResponse for: " + currentUser.getEmail());
 
         User user = userService.findOneByEmail(currentUser.getEmail());
-        return new SubTarget(user.getTargets().get(targetIndex));
+        long targetId = user.getTargets().get(index).getId();
+
+        logger.info("Sending LocationResponse for:" + user.getEmail());
+
+        return new LocationResponse(locationDataService.findOneByTargetIdAndDateAndTime(targetId,day,time));
     }
 
     @Autowired

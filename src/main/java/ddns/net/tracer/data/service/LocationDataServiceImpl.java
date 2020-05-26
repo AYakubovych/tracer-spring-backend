@@ -40,6 +40,17 @@ public class LocationDataServiceImpl implements LocationDataService {
         return locationDataRepository.findAllByTargetId(id);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<LocationData> findAllByTargetIdAndDate(long id, String date) {
+        return locationDataRepository.findAllByTargetIdAndDate(id,date);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public LocationData findOneByTargetIdAndDateAndTime(long id, String date, String time) {
+        return locationDataRepository.findOneByTargetIdAndDateAndTime(id,date,time);
+    }
 
     @Autowired
     public void setLocationDataRepository(LocationDataRepository locationDataRepository) {

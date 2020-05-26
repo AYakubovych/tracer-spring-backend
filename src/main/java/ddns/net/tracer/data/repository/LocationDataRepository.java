@@ -10,6 +10,7 @@ public interface LocationDataRepository extends CrudRepository<LocationData, Lon
 
     LocationData findOneById(long id);
     List<LocationData> findAllByTargetId(long id);
-
+    List<LocationData> findAllByTargetIdAndDate(long id,String date);
+    LocationData findOneByTargetIdAndDateAndTime(long id,String date,String time);
 
 }
