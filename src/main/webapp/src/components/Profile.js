@@ -28,17 +28,6 @@ export default function Profile() {
             console.log(e);
         }
     },[]);
-/*
-    componentDidMount() {
-        getCurrentUser().then(
-            res => {
-                this.state.name = res.name;
-                this.state.lastName = res.lastName;
-                this.state.email = res.email;
-                console.log(this.state.email);
-            }).then( () => this.state.isLoading = false);
-    } */
-
 
     return(
         <div className="block">
@@ -57,7 +46,7 @@ export default function Profile() {
 
                     <div className="map_block">
                         <div style={{marginTop:"120px"}}>
-                            <Nav.Link style={{color:"#204969",fontSize: "30px",textAlign: "center",justifyContent: 'center'}} href="/tracking">Track</Nav.Link>
+                            <Nav.Link className="tracking_button" href="/tracking">Track</Nav.Link>
                         </div>
                     </div>
                 </div>

@@ -62,4 +62,9 @@
     min-height: 302px;
     min-width: 520px;
 }
-
+.tracking_button{
+    color: #204969;
+    font-size: 30px;
+    text-align: center;
+    justify-content: center
+}

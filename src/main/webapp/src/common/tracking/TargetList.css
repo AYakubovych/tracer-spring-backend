@@ -1,9 +1,15 @@
-.list_item{
+.list_item {
     width: 283px;
-    background-color : white;
+    background-color: white;
     color: #204969;
-    border-color : #204969;
-    border-radius : 0px;
+    border-color: #204969;
+    border-radius: 0px;
+    height: 45px;
+}
+.list_item:hover{
+    background-color: #204969;
+    border-color: #204969;
+
 }
 .add_button{
     background-color : #1F6961;

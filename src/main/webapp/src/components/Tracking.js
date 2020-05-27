@@ -7,6 +7,7 @@ import DaysHOC from "../common/tracking/DaysHOC";
 import TimeHOC from "../common/tracking/TimeHOC";
 import {getLocation} from "../util/APIUtils";
 import MapHOC from "../common/tracking/MapHOC";
+import {Form, Input} from "antd";
 
 export class Tracking extends Component{
     constructor(props) {
@@ -60,17 +61,20 @@ export class Tracking extends Component{
                         <div className="main_left">
                             <TargetInfoHOC key={this.state.index}
                                            index={this.state.index}/>
-                        </div> {/*end of main_left div*/}
-                            <div className="target_list">
-                                <div className="top">
-                                    <h4 className="top_text">Target's list</h4>
-                                </div>
-                                <TargetListHOC onClick = {this.handleListClick.bind(this)}/>
+                        </div>
+                        {/*end of main_left div*/}
+                        <div className="target_list">
+                            <div className="top">
+                                <h4 className="top_text">Target's list</h4>
                             </div>
-                            <div className="marker_div">
-                                <div className="top">
-                                    <h4 className="top_text">Marker</h4>
-                                </div>
+                            <TargetListHOC onClick = {this.handleListClick.bind(this)}/>
+                        </div>
+                        {/*Marker div*/}
+                        <div className="marker_div">
+                            <div className="top">
+                                <h4 className="top_text">Marker</h4>
+                            </div>
+                            <div style={{}}>
                                 <DaysHOC key={this.state.index}
                                          index={this.state.index}
                                          handleDayChange={this.setDay.bind(this)}/>
@@ -78,9 +82,14 @@ export class Tracking extends Component{
                                          day={this.state.day}
                                          index={this.state.index}
                                          handleTimeChange={this.setTime.bind(this)}/>
-                                 <button onClick={() => this.handleButtonClick()}>Test</button>
+                                <Input type="submit"
+                                       className="submit_button"
+                                       onClick={() => this.handleButtonClick()}
+                                       value="Set marker"
+                                       style={{marginTop:'20px'}}/>
                             </div>
                         </div>
+                    </div>
                     {/*Map*/}
                     <div style={{width: '580px', float:'right'}}>
                         <MapHOC key={this.state.lat}
