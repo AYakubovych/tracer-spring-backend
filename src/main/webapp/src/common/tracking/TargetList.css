@@ -10,9 +10,11 @@
     height: 45px;
 }
 .list_item:hover{
+    background-color: #91B4CF;
+}
+.list_item:focus{
     background-color: #204969;
-    border-color: #204969;
-
+    border: 0px;
 }
 .add_button{
     background-color : #1F6961;

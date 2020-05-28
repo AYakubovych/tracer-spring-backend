@@ -39,8 +39,12 @@ export class Tracking extends Component{
 
     /*Marker button handler*/
     handleButtonClick(){
-        this.setState(state => ({isMarkerShow : true}))
-        this.fetchLocation()
+        if(this.state.day != null && this.state.time != null){
+            this.setState(state => ({isMarkerShow : true}))
+            this.fetchLocation()
+        }else{
+            this.setState(state => ({isMarkerShow : false}))
+        }
     }
 
     fetchLocation() {
