@@ -74,7 +74,7 @@ export class Tracking extends Component{
                             <div className="top">
                                 <h4 className="top_text">Marker</h4>
                             </div>
-                            <div style={{}}>
+                            <div >
                                 <DaysHOC key={this.state.index}
                                          index={this.state.index}
                                          handleDayChange={this.setDay.bind(this)}/>

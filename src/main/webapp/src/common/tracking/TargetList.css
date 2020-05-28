@@ -3,6 +3,9 @@
     background-color: white;
     color: #204969;
     border-color: #204969;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
     border-radius: 0px;
     height: 45px;
 }

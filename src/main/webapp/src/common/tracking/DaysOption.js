@@ -7,6 +7,9 @@ const customStyles = {
         height: 45,
         minHeight: 45,
         borderRadius:'0px',
+        borderTop:'0px',
+        borderLeft:'0px',
+        borderRight:'0px',
         borderColor: '#204969',
         textColor: '#204969'
     }),

@@ -51,7 +51,8 @@
     border-width:thin;
     border-style:solid;
     border-color:#204969;
-    border-radius: 12px;
+    border-radius: 13px;
+    background-color: white;
 }
 .marker_div{
     margin-top: 20px;
@@ -60,10 +61,11 @@
     left: 301px;
     width: 285px;
     height: 476px;
-    border-width:thin;
+    border-width: thin;
     border-style:solid;
     border-color:#204969;
-    border-radius: 12px;
+    border-radius: 13px;
+    background-color: white;
 }
 .data_text{
     text-align:left;

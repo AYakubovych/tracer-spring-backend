@@ -7,6 +7,7 @@ import Routes from "./Routes";
 import { getCurrentUser } from './util/APIUtils';
 import { ACCESS_TOKEN } from './constants';
 import NavigationBar from "./components/NavigationBar";
+import {Helmet} from "react-helmet";
 
 class App extends Component {
     constructor(props) {
@@ -77,6 +78,9 @@ class App extends Component {
     render(){
         return (
             <div>
+                <Helmet>
+                    <style>{'body { background-color: #F2F2F2; }'}</style>
+                </Helmet>
                 <NavigationBar appProps={this.state.isAuthenticated} onLogin={this.handleLogin}/>
                 <Routes appProps = {this.state.isAuthenticated}/>
             </div>

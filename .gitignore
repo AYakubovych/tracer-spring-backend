@@ -5,6 +5,7 @@ target/
 .mvn
 src/main/resources/application.properties
 src/main/webapp/src/constants/mapKey.ts
+src/main/webapp/WEB-INF
 
 
 ### STS ###
