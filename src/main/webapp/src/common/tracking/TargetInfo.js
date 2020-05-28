@@ -8,7 +8,9 @@ const TargetInfo = (props) => {
             <div className="top">
                 <h4 className="top_text">Current target</h4>
             </div>
-            <div className="target_img"></div>
+            <div className="target_img">
+
+            </div>
             <div className="data">
                 { /*<input type="image" src="${pageContext.request.contextPath}/images/settings.png"
                                 onClick="location.href = '/profile';" width="24" height="24"

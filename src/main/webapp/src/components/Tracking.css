@@ -18,7 +18,8 @@
     left: 16px;
     width:189px;
     height:252px;
-    background-image: url("../img/map.png");
+    background-size: 189px 252px;
+    background-image: url("../img/user_icon.png");
 }
 .left_wrap{
     height: auto;
