@@ -59,7 +59,7 @@ export class Tracking extends Component{
 
     render() {
         return (
-            <div className="block">
+            <div className="tracking_block">
                 <div className="inside_block">
                     <div className="left_wrap">
                         <div className="main_left">

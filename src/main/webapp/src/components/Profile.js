@@ -30,7 +30,7 @@ export default function Profile() {
     },[]);
 
     return(
-        <div className="block">
+        <div className="profile_block">
             <div className="block_inside">
                 <div className="first_row">
                 <div className="personal_data_block">
