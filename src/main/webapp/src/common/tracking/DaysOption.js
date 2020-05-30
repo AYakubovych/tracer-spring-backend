@@ -27,12 +27,12 @@ const DaysOption = (props) => {
         (val) =>{
             opt.push({value : val,label : val})
         }
-    )
+    );
 
     const handleOption = (selectedOption) => {
         console.log(selectedOption)
         props.handleChange(selectedOption.value);
-    }
+    };
 
     return (
 

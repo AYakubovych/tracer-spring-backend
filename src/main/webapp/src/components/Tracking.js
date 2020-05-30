@@ -7,7 +7,7 @@ import DaysHOC from "../common/tracking/DaysHOC";
 import TimeHOC from "../common/tracking/TimeHOC";
 import {getLocation} from "../util/APIUtils";
 import MapHOC from "../common/tracking/MapHOC";
-import {Form, Input} from "antd";
+import {Input} from "antd";
 
 export class Tracking extends Component{
     constructor(props) {
@@ -29,8 +29,7 @@ export class Tracking extends Component{
 
     setDay(day){
         {/*clicker need to fix bug with same day value re-render*/}
-        this.state.clicker--;
-        this.setState(state =>({time : '',day : day}));
+        this.setState(state =>({clicker: this.state.clicker-1,time : '',day : day}));
     }
 
     setTime(time){
