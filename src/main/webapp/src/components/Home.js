@@ -3,7 +3,6 @@ import "./Home.css";
 import '@brainhubeu/react-carousel/lib/style.css';
 import CustomCarousel from "../common/mainPage/CustomCarousel";
 import logoImg from '../img/logo.jpg';
-import androidImg from "../img/carousel/android.png";
 
 export default function Home() {
     return (

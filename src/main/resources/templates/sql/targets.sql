@@ -1,5 +1,8 @@
 INSERT INTO target values (1,'ayakubovych@yahoo.com','Anton','eserarehe','575818360','Yakubovych');
 INSERT INTO target values (2,'aaa@yahoo.com','Anastasia','eserarehe','575818360','Borovets');
+INSERT INTO users values (1,'asd@asd.com',true,'Yakubovych',
+'Anton','$2y$10$/pb4ZsOUfOzoKaVgdwtdF.XbWFbvZ0bDS7nDfjz97c8ORvWi93hc2');
+INSERT INTO user_role values (1,1);
 INSERT INTO user_target values (1,1);
 INSERT INTO user_target values (1,2);
 
