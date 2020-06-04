@@ -2,6 +2,7 @@ package ddns.net.tracer.data.service;
 
 
 import ddns.net.tracer.data.entities.Target;
+import org.springframework.stereotype.Service;
 
 public interface TargetService {
 

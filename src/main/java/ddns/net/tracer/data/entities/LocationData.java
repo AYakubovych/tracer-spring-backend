@@ -4,7 +4,6 @@ package ddns.net.tracer.data.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Table
 public class LocationData implements Serializable {

@@ -28,23 +28,23 @@ public class User implements Serializable {
     @Column(name = "id")
     private long id;
 
-    @NotBlank(message = "create.form.name.surname.empty" )
+    @NotBlank
     @Column(name = "username")
     private String name;
 
-    @NotBlank(message = "create.form.name.surname.empty")
+    @NotBlank
     @Column(name = "last_name")
     private String last_name;
 
     @JsonIgnore
     @Unique
-    @NotBlank(message = "create.form.email.error" )
-    @Email(message = "create.form.email.error" )
-    @Column(name ="email")
+    @NotBlank
+    @Email
+    @Column
     private String email;
 
     @JsonIgnore
-    @Size(min = 2,message = "create.form.pass.length")
+    @Size(min = 2)
     @Column(name = "pass")
     private String pass;
 

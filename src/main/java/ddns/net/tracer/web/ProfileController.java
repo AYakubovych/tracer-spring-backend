@@ -29,6 +29,7 @@ public class ProfileController {
 
         logger.info("Creating user data for: " + currentUser.getEmail());
         User user = userService.findOneByEmail(currentUser.getEmail());
+
         return new UserData(user.getName(),user.getLast_name(),user.getEmail());
     }
 

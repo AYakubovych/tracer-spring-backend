@@ -3,6 +3,7 @@ package ddns.net.tracer.data.service;
 
 
 import ddns.net.tracer.data.entities.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

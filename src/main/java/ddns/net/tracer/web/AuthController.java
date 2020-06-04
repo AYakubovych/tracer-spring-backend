@@ -41,11 +41,9 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     private UserService userService;
-
     private RoleService roleService;
 
     private PasswordEncoder passwordEncoder;
-
     private JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")

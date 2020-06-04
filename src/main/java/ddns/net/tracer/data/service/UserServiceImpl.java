@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
 @Repository
 @Transactional
 public class UserServiceImpl implements UserService{
