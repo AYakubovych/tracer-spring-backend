@@ -9,5 +9,6 @@ public interface TargetRepository extends CrudRepository<Target,Integer> {
 
     Target findOneByName(String name);
     Target findOneById(long id);
+    Target findOneByEmail(String email);
 
 }
