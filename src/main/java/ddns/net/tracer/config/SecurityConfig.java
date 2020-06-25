@@ -82,7 +82,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .antMatchers("/login",
                         "/signup",
-                        "/")
+                        "/",
+                        "/mailing/*")
                 .permitAll()
                 .anyRequest().authenticated();
 
