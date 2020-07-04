@@ -3,8 +3,10 @@ package ddns.net.tracer.web;
 
 import ddns.net.tracer.config.security.CurrentUser;
 import ddns.net.tracer.config.security.UserPrincipal;
+import ddns.net.tracer.data.entities.BindingKey;
 import ddns.net.tracer.data.entities.Target;
 import ddns.net.tracer.data.entities.User;
+import ddns.net.tracer.data.service.BindingKeyService;
 import ddns.net.tracer.data.service.TargetService;
 import ddns.net.tracer.data.service.UserService;
 import ddns.net.tracer.payloads.ApiResponse;
@@ -30,6 +32,7 @@ public class ProfileController {
 
     private UserService userService;
     private TargetService targetService;
+    private BindingKeyService bindingKeyService;
 
     @GetMapping(produces = "application/json")
     @PreAuthorize("hasRole('USER')")
@@ -44,22 +47,20 @@ public class ProfileController {
 
     @PostMapping(path="/add/target", produces = "application/json")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> addTarget(@CurrentUser UserPrincipal currentUser,@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<?> addTarget(@CurrentUser UserPrincipal currentUser,@RequestBody String key){
 
         logger.info("Adding target for user : " + currentUser.getEmail());
 
-        Target target = targetService.findOneByEmail(loginRequest.getEmail());
+        BindingKey bindingKey = bindingKeyService.findOneByKey(key);
+
+        Target target = bindingKey.getTarget();
 
         if(target == null){
             logger.error("No such target");
             return new ResponseEntity(new ApiResponse(false, "No such target"),
                     HttpStatus.BAD_REQUEST);
         }
-        if(!loginRequest.getPassword().equals(target.getPass())){
-            logger.error("Passwords didn't match");
-            return new ResponseEntity(new ApiResponse(false, "Email or password incorrect"),
-                    HttpStatus.BAD_REQUEST);
-        }
+
         User user = userService.findOneByEmail(currentUser.getEmail());
 
         if(user.getTargets().contains(target)){
@@ -74,6 +75,11 @@ public class ProfileController {
         logger.info("Creating response for user: " + currentUser.getEmail());
         return new ResponseEntity(new ApiResponse(true, "All ok"),
                 HttpStatus.OK);
+    }
+
+    @Autowired
+    public void setBindingKeyService(BindingKeyService bindingKeyService) {
+        this.bindingKeyService = bindingKeyService;
     }
 
     @Autowired

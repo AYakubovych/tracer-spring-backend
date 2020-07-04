@@ -32,6 +32,10 @@ public class Target implements  Serializable {
     @Column(name = "phone")
     private String phone;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "binding_key_id", referencedColumnName = "id")
+    private BindingKey bindingKey;
+
     @Column
     @JsonIgnore
     @ManyToMany(mappedBy = "targets")
@@ -98,6 +102,14 @@ public class Target implements  Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public BindingKey getBindingKey() {
+        return bindingKey;
+    }
+
+    public void setBindingKey(BindingKey bindingKey) {
+        this.bindingKey = bindingKey;
     }
 
     @Override
