@@ -10,6 +10,7 @@ import ddns.net.tracer.data.service.BindingKeyService;
 import ddns.net.tracer.data.service.TargetService;
 import ddns.net.tracer.data.service.UserService;
 import ddns.net.tracer.payloads.ApiResponse;
+import ddns.net.tracer.payloads.KeyRequest;
 import ddns.net.tracer.payloads.LoginRequest;
 import ddns.net.tracer.payloads.UserData;
 import org.slf4j.Logger;
@@ -47,11 +48,17 @@ public class ProfileController {
 
     @PostMapping(path="/add/target", produces = "application/json")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> addTarget(@CurrentUser UserPrincipal currentUser,@RequestBody String key){
+    public ResponseEntity<?> addTarget(@CurrentUser UserPrincipal currentUser,@Valid @RequestBody KeyRequest keyRequest){
 
-        logger.info("Adding target for user : " + currentUser.getEmail());
+        logger.info("Adding target for user : " + currentUser.getEmail() + " , key : " + keyRequest.getKey());
 
-        BindingKey bindingKey = bindingKeyService.findOneByKey(key);
+        BindingKey bindingKey = bindingKeyService.findOneByKey(keyRequest.getKey());
+
+        if(bindingKey == null){
+            logger.error("No such key");
+            return new ResponseEntity(new ApiResponse(false, "No such key"),
+                    HttpStatus.BAD_REQUEST);
+        }
 
         Target target = bindingKey.getTarget();
 
@@ -72,7 +79,7 @@ public class ProfileController {
         user.getTargets().add(target);
         userService.save(user);
 
-        logger.info("Creating response for user: " + currentUser.getEmail());
+        logger.info("Target added. Creating response for user: " + currentUser.getEmail());
         return new ResponseEntity(new ApiResponse(true, "All ok"),
                 HttpStatus.OK);
     }
