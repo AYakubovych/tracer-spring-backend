@@ -110,7 +110,18 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>2.2.5.RELEASE</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
 
+        <!--Database for testing -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.192</version>
+            <scope>runtime</scope>
+        </dependency>
 
     </dependencies>
 

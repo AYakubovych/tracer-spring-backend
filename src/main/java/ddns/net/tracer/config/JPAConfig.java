@@ -10,7 +10,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -22,6 +30,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
+/**
+ * This class contains commented code
+ * for deployment configuration of database
+ */
 @Configuration
 @EnableTransactionManagement
 @ComponentScan
@@ -30,6 +43,7 @@ public class JPAConfig {
 
     private static Logger logger = LoggerFactory.getLogger(JPAConfig.class);
 
+    //Properties for PostgreSQL DataSource
     @Value("${db.driverClassName}")
     private String driverClassName;
 
@@ -45,6 +59,21 @@ public class JPAConfig {
 
     @Bean
     public DataSource dataSource() {
+        try{
+            EmbeddedDatabaseBuilder databaseBuilder = new EmbeddedDatabaseBuilder();
+
+            DataSource dataSource = databaseBuilder.setType(EmbeddedDatabaseType.H2).build();
+
+
+            return dataSource;
+        }catch (Exception e){
+            logger.error("Embedded DataSource bean cannot be created!", e);
+
+            return null;
+        }
+        /*
+        DataSource configuration for deployment
+
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
@@ -52,6 +81,18 @@ public class JPAConfig {
         dataSource.setUsername(user);
 
         return dataSource;
+        */
+    }
+    //Bean for testing initialization
+    @Bean
+    public DataSourceInitializer dataSourceInitializer() {
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+        resourceDatabasePopulator.addScript(new ClassPathResource("/data-h2.sql"));
+
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+        dataSourceInitializer.setDataSource(dataSource());
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+        return dataSourceInitializer;
     }
 
     @Bean
@@ -67,10 +108,16 @@ public class JPAConfig {
     @NotNull
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
-        hibernateProperties.setProperty(
-                "hibernate.hbm2ddl.auto", "update");
+        /*
+        Dialect property for PostgreSQL
+
         hibernateProperties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+        */
+        hibernateProperties.setProperty(
+                "hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        hibernateProperties.setProperty(
+                "hibernate.hbm2ddl.auto", "create");
         hibernateProperties.setProperty(
                 "hibernate.format_sql" , "true");
         hibernateProperties.setProperty(
