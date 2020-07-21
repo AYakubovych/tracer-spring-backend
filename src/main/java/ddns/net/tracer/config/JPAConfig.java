@@ -44,6 +44,7 @@ public class JPAConfig {
     private static Logger logger = LoggerFactory.getLogger(JPAConfig.class);
 
     //Properties for PostgreSQL DataSource
+    /*
     @Value("${db.driverClassName}")
     private String driverClassName;
 
@@ -55,7 +56,7 @@ public class JPAConfig {
 
     @Value("${db.dbuser}")
     private String user;
-
+    */
 
     @Bean
     public DataSource dataSource() {
