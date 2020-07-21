@@ -36,15 +36,15 @@ public class FeedBackController {
         RestTemplate restTemplate = new RestTemplate();
         try {
 
-            Boolean isDelivered = restTemplate.postForObject(
+            ApiResponse mailingServiceResponse = restTemplate.postForObject(
                     MAILING_URL + FEEDBACK_ROUTING,
                     feedBackRequest,
-                    Boolean.class);
+                    ApiResponse.class);
 
-            if (isDelivered) {
+            if (mailingServiceResponse.getSuccess()) {
                 logger.info("Mail sended");
             } else {
-                logger.info("Mail not sended");
+                logger.info("Mail not sended " + mailingServiceResponse.getMessage());
             }
 
         } catch (Exception e) {
