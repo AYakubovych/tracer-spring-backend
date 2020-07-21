@@ -16,7 +16,7 @@ This program serves asynchronous requests from the
 To run this you must have Maven and Java installed and use this commands
 ```shell script
     mvn clean install
-    java -jar tracer-0.1.1-SNAPSHOT.jar
+    java -jar target/tracer-0.1.1-SNAPSHOT.jar
 ```
 
 For testing purpose i use H2 database, but on deploying i using Postgres
