@@ -3,7 +3,7 @@ package ddns.net.tracer.web;
 import ddns.net.tracer.config.security.jwt.JwtTokenProvider;
 import ddns.net.tracer.payloads.ApiResponse;
 import ddns.net.tracer.payloads.JwtAuthenticationResponse;
-import ddns.net.tracer.payloads.LoginRequest;
+import ddns.net.tracer.payloads.SignInRequest;
 import ddns.net.tracer.payloads.SignUpRequest;
 import ddns.net.tracer.data.entities.Role;
 import ddns.net.tracer.data.entities.RoleName;
@@ -47,21 +47,21 @@ public class AuthController {
     private JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignInRequest signInRequest) {
 
-        logger.info("Authentication for " + loginRequest.getEmail());
+        logger.info("Authentication for " + signInRequest.getEmail());
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        loginRequest.getEmail(),
-                        loginRequest.getPassword()
+                        signInRequest.getEmail(),
+                        signInRequest.getPassword()
                 )
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.generateToken(authentication);
 
-        logger.info("JWT for " + loginRequest.getEmail() + " created and sended");
+        logger.info("JWT for " + signInRequest.getEmail() + " created and sended");
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwt));
     }

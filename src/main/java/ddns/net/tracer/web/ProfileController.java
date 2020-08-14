@@ -11,7 +11,6 @@ import ddns.net.tracer.data.service.TargetService;
 import ddns.net.tracer.data.service.UserService;
 import ddns.net.tracer.payloads.ApiResponse;
 import ddns.net.tracer.payloads.KeyRequest;
-import ddns.net.tracer.payloads.LoginRequest;
 import ddns.net.tracer.payloads.UserData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 
 @RestController
 @RequestMapping("/profile")
@@ -32,7 +29,6 @@ public class ProfileController {
     private Logger logger = LoggerFactory.getLogger(ProfileController.class);
 
     private UserService userService;
-    private TargetService targetService;
     private BindingKeyService bindingKeyService;
 
     @GetMapping(produces = "application/json")
@@ -87,11 +83,6 @@ public class ProfileController {
     @Autowired
     public void setBindingKeyService(BindingKeyService bindingKeyService) {
         this.bindingKeyService = bindingKeyService;
-    }
-
-    @Autowired
-    public void setTargetService(TargetService targetService) {
-        this.targetService = targetService;
     }
 
     @Autowired
